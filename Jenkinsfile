@@ -11,13 +11,16 @@ pipeline {
         maven  "maven3"
     }
 
-//    environment {
+    environment {
+        PORT = "8082"
+        TOMCAT_IP = "192.168.33.11"
+        warPath="/mvn-hello-world"
 //
 //        project_name = "crewpro"
 //        port = "8090"
 //        env = "Dev"
 //        hostname =""
-//    }
+    }
     options {
         // Only keep the 10 most recent builds
         buildDiscarder(logRotator(numToKeepStr:'2'))
@@ -37,8 +40,9 @@ pipeline {
          }
         stage('Deploy to Tomcat'){
             steps {
-                  sshagent(['my-ssh-key']) {
-                  sh 'scp -rv -o StrictHostKeyChecking=no target/*.war vagrant@192.168.33.11:/opt/tomcat/webapps/'
+                  //sshagent(['my-ssh-key']) {
+                  //sh 'scp -rv -o StrictHostKeyChecking=no target/*.war vagrant@192.168.33.11:/opt/tomcat/webapps/'
+                    sh 'curl -u ifind:zs123456 http://${TOMCAT_IP}:${PORT}/manager/text/undeploy?path=${warPath}"
             }
        }
    }
