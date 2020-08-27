@@ -7,8 +7,8 @@ pipeline {
 //        label "nodename"
 //    }
     parameters { 
-         string(name: 'tomcat_dev', defaultValue: '35.166.210.154', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: '34.209.233.6', description: 'Production Server')
+         choice(name: 'Fortify_Version', choices: ['19.2.0', '4.30'], description: 'Select a Fortify Version')
+
     } 
     tools {
         jdk "java1.8"
@@ -38,7 +38,7 @@ pipeline {
             post {
                success {
                     // we only worry about archiving the jar file if the build steps are successful
-                    archiveArtifacts(artifacts: '**/target/*.jar', allowEmptyArchive: true)
+                    archiveArtifacts(artifacts: '**/target/*.war', allowEmptyArchive: true)
                 }
              }
          }
@@ -46,6 +46,18 @@ pipeline {
             steps {
                 //Deploying Application to tomcat server
                 appDeploy("${TOMCAT_IP}","${PORT}","${warPath}");
+            }
+        }
+        stage('Scanning Code - Fortify '){
+            steps {
+                //Verifying Fortify Scan Results
+                fortifyScan("${params.Fortify_Version}");
+            }
+        }
+        stage('Validating Fortify Scan Results '){
+            steps {
+                //Verifying Fortify Scan Results
+                fortifyScanValidation("${params.Fortify_Version}");
             }
         }
     }
