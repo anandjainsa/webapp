@@ -44,14 +44,10 @@ pipeline {
          }
         stage('Deploy to Tomcat'){
             steps {
+                //Deploying Application to tomcat server
                 appDeploy("${TOMCAT_IP}","${PORT}","${warPath}");
-                  //sshagent(['my-ssh-key']) {
-                  //sh 'scp -rv -o StrictHostKeyChecking=no target/*.war vagrant@192.168.33.11:/opt/tomcat/webapps/'
-                  //  sh "curl -u ifind:zs123456 http://${TOMCAT_IP}:${PORT}/manager/text/undeploy?path=${warPath}"
-                  // sh "curl --upload-file target/mvn-hello-world.war  -u ifind:zs123456 http://${TOMCAT_IP}:${PORT}/manager/text/deploy?path=${warPath}"
-            //}
-       }
-   }
+            }
+        }
     }
     post {
         always {
