@@ -63,7 +63,8 @@ pipeline {
     }
     post {
         always {
-           archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
+           archiveArtifacts artifacts: 'target/*.war'
+            //, onlyIfSuccessful: true
             
             echo 'I will always say Hello again!'
                 
