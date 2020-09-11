@@ -54,12 +54,12 @@ pipeline {
                 fortifyScan("${params.Fortify_Version}");
             }
         }
-        stage('Validating Fortify Scan Results '){
-            steps {
-                //Verifying Fortify Scan Results
-                fortifyScanValidation("${params.Fortify_Version}");
-            }
-        }
+        //stage('Validating Fortify Scan Results '){
+        //    steps {
+        //        //Verifying Fortify Scan Results
+        //        fortifyScanValidation("${params.Fortify_Version}");
+        //    }
+       // }
     }
     post {
         always {
