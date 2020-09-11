@@ -63,7 +63,8 @@ pipeline {
     }
     post {
         always {
-            sendNotifications("currentBuild.result")
+            //sendNotifications("currentBuild.result")
+            emailNotify()
         }
     }
 }
