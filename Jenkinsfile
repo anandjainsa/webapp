@@ -81,6 +81,7 @@ pipeline {
                     }
                 }
             }
+       }
         stage('Deploy to Tomcat'){
             steps {
                 //Deploying Application to tomcat server
