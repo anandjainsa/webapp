@@ -2,10 +2,10 @@
 
 pipeline {
 
-    agent any
-//    agent {
-//        label "nodename"
-//    }
+//    agent any
+    agent {
+        label "maven-agent"
+    }
     parameters { 
          choice(name: 'Fortify_Version', choices: ['19.2.0', '4.30'], description: 'Select a Fortify Version')
 
